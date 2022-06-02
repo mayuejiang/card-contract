@@ -1,0 +1,12 @@
+{
+  "index": {
+    "fields": [
+      "key",
+      "name",
+      "privateKey"
+    ]
+  },
+  "ddoc": "indexCardDoc",
+  "name": "indexCard",
+  "type": "json"
+}
