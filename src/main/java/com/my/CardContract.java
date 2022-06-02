@@ -36,7 +36,7 @@ import java.util.logging.Level;
 public class CardContract implements ContractInterface {
 
     @Transaction
-    public Card createCard(Context ctx, Card card) {
+    public Card createCard2(Context ctx, Card card) {
         ChaincodeStub stub = ctx.getStub();
         String cardState = stub.getStringState(card.getKey());
 
@@ -53,7 +53,6 @@ public class CardContract implements ContractInterface {
 
     @Transaction
     public Card createCard(final Context ctx, final String key, String name, String imageUrl, String privateKey, String owner) {
-
         ChaincodeStub stub = ctx.getStub();
         String cardState = stub.getStringState(key);
 
@@ -78,7 +77,6 @@ public class CardContract implements ContractInterface {
 
     @Transaction
     public Card updateCard(final Context ctx, final String key, String name, String imageUrl, String privateKey, String owner) {
-
         ChaincodeStub stub = ctx.getStub();
         String cardState = stub.getStringState(key);
 
@@ -103,7 +101,6 @@ public class CardContract implements ContractInterface {
 
     @Transaction
     public Card changeCardOwner(final Context ctx, final String key, String newOwner) {
-
         ChaincodeStub stub = ctx.getStub();
         String cardState = stub.getStringState(key);
 
@@ -121,10 +118,8 @@ public class CardContract implements ContractInterface {
         stub.setEvent("changeCardOwner", org.apache.commons.codec.binary.StringUtils.getBytesUtf8(json));
         return card;
     }
-
     @Transaction
     public Card deleteCard(final Context ctx, final String key) {
-
         ChaincodeStub stub = ctx.getStub();
         String cardState = stub.getStringState(key);
 
@@ -142,7 +137,6 @@ public class CardContract implements ContractInterface {
 
     @Transaction
     public Card getCard(final Context ctx, final String key) {
-
         ChaincodeStub stub = ctx.getStub();
         String cardState = stub.getStringState(key);
 
@@ -168,7 +162,6 @@ public class CardContract implements ContractInterface {
 
     @Transaction
     public CardQueryResultList queryCardByImageUrl(final Context ctx, String imageUrl) {
-
         log.info(String.format("使用 imageUrl 查询 card , imageUrl = %s", imageUrl));
 
         String query = String.format("{\"selector\":{\"imageUrl\":\"%s\"} , \"use_index\":[\"_design/indexCardDoc\", \"indexCard\"]}", imageUrl);
@@ -179,7 +172,6 @@ public class CardContract implements ContractInterface {
 
     @Transaction
     public CardQueryResultList queryCardByOwner(final Context ctx, String owner) {
-
         log.info(String.format("使用 owner 查询 card , owner = %s", owner));
 
         String query = String.format("{\"selector\":{\"owner\":\"%s\"} , \"use_index\":[\"_design/indexCardDoc\", \"indexCard\"]}", owner);
@@ -190,7 +182,6 @@ public class CardContract implements ContractInterface {
 
     @Transaction
     public CardQueryResultList queryCardByPrivateKey(final Context ctx, String privateKey) {
-
         log.info(String.format("使用 privateKey 查询 card , privateKey = %s", privateKey));
 
         String query = String.format("{\"selector\":{\"privateKey\":\"%s\"} , \"use_index\":[\"_design/indexCardDoc\", \"indexCard\"]}", privateKey);
@@ -200,7 +191,6 @@ public class CardContract implements ContractInterface {
     }
 
     private CardQueryResultList queryCard(ChaincodeStub stub, String query) {
-
         CardQueryResultList resultList = new CardQueryResultList();
         QueryResultsIterator<KeyValue> queryResult = stub.getQueryResult(query);
         List<CardQueryResult> results = Lists.newArrayList();
@@ -217,7 +207,6 @@ public class CardContract implements ContractInterface {
 
     @Transaction
     public CardQueryPageResult queryCardPageByOwner(final Context ctx, String owner , Integer pageSize , String bookmark) {
-
         log.info(String.format("使用 name 分页查询 card , owner = %s" , owner));
 
         String query = String.format("{\"selector\":{\"owner\":\"%s\"} , \"use_index\":[\"_design/indexCardDoc\", \"indexCard\"]}", owner);
